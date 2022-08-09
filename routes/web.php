@@ -18,5 +18,17 @@ use \App\Http\Controllers\NewsController;
 |
 */
 
+Route::get('/', WelcomeController::class)
+    ->name('home');
+
+Route::get('/about', AboutController::class)
+    ->name('about');
+
+Route::get('/news', [NewsController::class, 'index'])
+    ->name('news');
+
+Route::get('/news/{id}',[NewsController::class,'show'])
+    ->where('id','\d+')
+    ->name('news.item');
 
 
