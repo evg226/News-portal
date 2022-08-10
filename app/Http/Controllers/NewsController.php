@@ -31,7 +31,7 @@ class NewsController extends Controller
         for ($i = 1; $i < 10; $i++) {
             $news[] = [
                 'id' => $i,
-                'title' => $faker->title,
+                'title' => $faker->sentence(3),
                 'description' => $faker->sentence(),
                 'content' => $faker->sentences(20, true),
                 'image' => $faker->imageUrl()

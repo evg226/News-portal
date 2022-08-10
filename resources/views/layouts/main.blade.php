@@ -11,18 +11,17 @@
     </title>
 
     <link href="{{asset('css/app.css')}}" rel="stylesheet">
-    <style>
-        #app {
-            display: flex; flex-direction: column; min-height: 100vh; max-width: 900px; margin: 0 auto
-        }
-    </style>
+    <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet">
+
 </head>
 <body>
-<div id="app">
+<div id="app" class="d-flex flex-column min-vh-100">
     <x-header></x-header>
 
-    <main style="flex-grow: 1">
-        @yield('content')
+    <main class="flex-grow-1 py-3">
+        <div class="container">
+            @yield('content')
+        </div>
     </main>
 
     <x-footer></x-footer>
@@ -31,6 +30,8 @@
 
 
 </body>
-<script src="{{ asset('js/app.js') }}" defer></script>
+<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/bootstrap.js') }}"></script>
+
 </html>
 
