@@ -24,20 +24,27 @@
                         <a href="{{route('about')}}"
                            class="nav-link @if(request()->routeIs('about')) active @endif">О&nbsp;нас</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
-                           aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
+                    @guest
+                        <li class="nav-item">
+                            <a href="{{route('admin.index')}}"
+                               class="nav-link">Войти</a>
+                        </li>
+                    @else
+                        <li class="nav-item dropdown">
+                            <span class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                  aria-expanded="false">
+                                Пользователь
+                            </span>
+                            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="">Личный кабинет</a></li>
+                                <li><a class="dropdown-item" href="{{route('admin.index')}}">Админ панель</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Выйти</a></li>
+                            </ul>
+                        </li>
+                    @endguest
                 </ul>
                 {{--                <form class="d-flex">--}}
                 {{--                    <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">--}}
