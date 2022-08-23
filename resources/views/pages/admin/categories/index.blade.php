@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    @parent - Список новостей
+    @parent - Категории
 @endsection
 
 @section('content')
@@ -10,19 +10,17 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between">
-                    <h5 class="card-title">Редактирование новостей</h5>
-                    <a href="{{route('admin.news.create')}}" class="card-title px-2">
+                    <h5 class="card-title">Редактирование категорий</h5>
+                    <a href="{{route('admin.categories.create')}}" class="card-title px-2">
                         <i class="bi bi-plus-square"></i>&nbsp<small class="d-none d-sm-inline-block">Создать</small>
                     </a>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-striped table-responsive-md" style="font-size: 0.85rem ">
+                    <table class="table table-striped" style="font-size: 0.85rem ">
                         <thead>
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Заголовок</th>
-                            <th scope="col">Категория</th>
-                            <th scope="col">Описание</th>
                             <th scope="col">Автор</th>
                             <th scope="col">Создано</th>
                             <th scope="col"></th>
@@ -30,17 +28,15 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @forelse ($newsList as $newsItem)
+                        @forelse ($categories as $category)
                             <tr>
-                                <th scope="row">{{$newsItem['id']}}</th>
-                                <td>{{$newsItem['title']}}</td>
-                                <td>{{$newsItem['category_id']}}</td>
-                                <td>{{$newsItem['description']}}</td>
-                                <td>{{$newsItem['author']}}</td>
-                                <td class="text-nowrap">{{$newsItem['created_at']}}</td>
+                                <th scope="row">{{$category['id']}}</th>
+                                <td>{{$category['title']}}</td>
+                                <td>{{$category['author']}}</td>
+                                <td class="text-nowrap">{{$category['created_at']}}</td>
                                 <td class="text-center p-0" style="width: 40px">
-                                    <a href="{{route('admin.news.edit',['news'=>$newsItem
-['id']])}}" class="btn link-primary">
+                                    <a href="{{route('admin.categories.edit',['category'=>$category['id']])}}"
+                                       class="btn link-primary">
                                         <i class="bi bi-pen"></i>
                                     </a>
                                 </td>
@@ -51,7 +47,7 @@
                                 </td>
                             </tr>
                         @empty
-                            <h6>Новостей пока нет</h6>
+                            <h6>Категорий пока нет</h6>
                         @endforelse
                         </tbody>
                     </table>

@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
-class NewsController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +15,8 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $newsList = $this->generateNews([]);
-
-        return view('pages.admin.news.index',['newsList'=>$newsList]);
+        $categories = $this->generateCategories();
+        return view('pages.admin.categories.index', ['categories' => $categories]);
     }
 
     /**
@@ -26,31 +26,30 @@ class NewsController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.news.create');
+        return view('pages.admin.categories.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $request->validate([
-            'title' => ['required','string','min:5','max:100'],
-            'description' => ['required','string','min:10','max:100'],
-            'content' => ['required','string','min:20'],
-            'image' => ['required','string','min:10','max:254'],
-            'author' => ['required','string','min:3','max:50'],
-        ]);
-        return redirect(route('admin.news'));
+                'title' => ['required', 'string', 'min:5', 'max:100'],
+                'author' => ['required', 'string', 'min:3', 'max:50']
+            ]
+        );
+        $validated = $request->only('title', 'author');
+        return redirect(route('admin.categories'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -61,7 +60,7 @@ class NewsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -72,8 +71,8 @@ class NewsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -84,7 +83,7 @@ class NewsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
