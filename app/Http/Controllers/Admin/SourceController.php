@@ -3,21 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Models\Source;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 
-class CategoryController extends Controller
+class SourceController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
-        $categories = Category::all();
-        return view('pages.admin.categories.index', ['categories' => $categories]);
+        $sources = Source::all();
+        return view('pages.admin.sources.index', ['sources' => $sources]);
     }
 
     /**
@@ -25,9 +25,9 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): View
     {
-        return view('pages.admin.categories.create');
+        return view('pages.admin.sources.create');
     }
 
     /**
@@ -39,12 +39,12 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-                'title' => ['required', 'string', 'min:5', 'max:100'],
-                'author' => ['required', 'string', 'min:3', 'max:50']
+                'name' => ['required', 'string', 'min:5', 'max:255'],
+                'url' => ['required', 'string', 'min:3', 'max:255']
             ]
         );
-        $validated = $request->only('title', 'author');
-        return redirect(route('admin.categories'));
+        $validated = $request->only('name', 'description', 'url');
+        return redirect(route('admin.sources'));
     }
 
     /**

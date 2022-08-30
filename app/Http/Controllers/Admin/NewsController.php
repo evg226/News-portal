@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\News;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
@@ -14,8 +15,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $newsList = $this->generateNews([]);
-
+        $newsList = News::all();
         return view('pages.admin.news.index',['newsList'=>$newsList]);
     }
 

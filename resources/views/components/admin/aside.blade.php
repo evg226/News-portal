@@ -24,6 +24,13 @@
             </a>
         </li>
 
+        <li class="nav-item">
+            <a class="nav-link @if(!request()->routeIs('admin.sources*')) collapsed @endif" href="{{route('admin.sources')}}">
+                <i class="bi bi-chat-left-text"></i>
+                <span>Источники</span>
+            </a>
+        </li>
+
         <li class="nav-heading">User</li>
 
         <li class="nav-item">

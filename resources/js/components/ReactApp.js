@@ -85,42 +85,46 @@ export const ReactApp = () => {
             <div className={'mx-2' + (isShowFilters ? ' d-flex justify-content-between' : '')}>
                 <div className={!isShowFilters ? ' d-none' : ''}>
                     <Form onSubmit={handleChangeContent}>
-                        <h6>Категории
-                            <Button variant={'outline-secondary'} className={'px-2 py-0 ml-3 btn-sm'}
+                        <div className={'d-flex align-items-center mb-2'}>
+                            <h6 className={'m-0'}>Категории</h6>
+                            <Button variant={'outline-secondary'} className={'px-2 py-0 ms-3 btn-sm'}
                                     onClick={changeShowAllCategories}>
                                 <small>{!isShowAllCategories ? 'все >>' : '<< скрыть'}</small>
                             </Button>
-                        </h6>
+                        </div>
                         {
                             (categories.length === 0) ?
                                 <h3>Загрузка...{}</h3>
                                 :
-                                <div className={'d-flex flex-column'}>
-                                    <Form.Check
-                                        inline
-                                        label={'Все'}
-                                        name="categories-group"
-                                        type={'checkbox'}
-                                        id={`category-all`}
-                                        checked={isSelectAllCategories}
-                                        className={'small'}
-                                        onChange={selectAllCategories}
-                                    />
-                                    {
-                                        categories.length && categories.map(category =>
-                                                category.show && <Form.Check
-                                                    key={category.id}
-                                                    inline
-                                                    label={category.title}
-                                                    name="categories-group"
-                                                    type={'checkbox'}
-                                                    id={`category-` + category.id}
-                                                    checked={category.selected}
-                                                    className={'small'}
-                                                    onChange={() => changeCheckedCategories(category)}
-                                                />
-                                        )
-                                    }
+                                <div className={'container'}>
+                                    <div className={'row'}
+                                    >
+                                        <Form.Check
+                                            inline
+                                            label={'Все'}
+                                            name="categories-group"
+                                            type={'checkbox'}
+                                            id={`category-all`}
+                                            checked={isSelectAllCategories}
+                                            className={'small m-0 col-12 col-sm-6 col-md-4 col-lg-3'}
+                                            onChange={selectAllCategories}
+                                        />
+                                        {
+                                            categories.length && categories.map(category =>
+                                                    category.show && <Form.Check
+                                                        key={category.id}
+                                                        inline
+                                                        label={category.title}
+                                                        name="categories-group"
+                                                        type={'checkbox'}
+                                                        id={`category-` + category.id}
+                                                        checked={category.selected}
+                                                        className={'small m-0 col-12 col-sm-6 col-md-4 col-lg-3 text-nowrap'}
+                                                        onChange={() => changeCheckedCategories(category)}
+                                                    />
+                                            )
+                                        }
+                                    </div>
                                 </div>
                         }
                         <Button
@@ -138,7 +142,7 @@ export const ReactApp = () => {
                 </div>
             </div>
 
-            <div id="react-newslist-container" className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+            <div id="react-newslist-container" className="row row-cols-1 row-cols-md-2  row-cols-xl-3">
                 {
                     !!news.length &&
                     news.map(item =>

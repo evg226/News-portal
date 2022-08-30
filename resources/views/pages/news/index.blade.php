@@ -7,7 +7,7 @@
 @section('content')
     <h1>Список новостей</h1>
     <div id="reactApp"></div>
-    <div id="blade-newslist-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+    <div id="blade-newslist-container" class="row row-cols-1 row-cols-md-2  row-cols-xl-3">
         @forelse($newsList as $item)
             <a href="{{route('news.item',['id'=>$item['id']])}}"
                class="col text-decoration-none text-secondary p-3">

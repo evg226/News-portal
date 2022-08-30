@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    @parent - Список новостей
+    @parent - Источники новостей
 @endsection
 
 @section('content')
@@ -10,40 +10,35 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between">
-                    <h5 class="card-title">Редактирование новостей</h5>
-                    <a href="{{route('admin.news.create')}}" class="card-title px-2">
+                    <h5 class="card-title">Редактирование источников</h5>
+                    <a href="{{route('admin.sources.create')}}" class="card-title px-2">
                         <i class="bi bi-plus-square"></i>&nbsp<small class="d-none d-sm-inline-block">Создать</small>
                     </a>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-striped table-responsive-md" style="font-size: 0.85rem ">
+                    <table class="table table-striped" style="font-size: 0.85rem ">
                         <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Заголовок</th>
-                            <th scope="col">Источник</th>
-                            <th scope="col">Категория</th>
+                            <th scope="col">Название</th>
                             <th scope="col">Описание</th>
-                            <th scope="col">Автор</th>
-                            <th scope="col">Статус</th>
-                            <th scope="col">Создано</th>
+                            <th scope="col">Url</th>
+                            <th scope="col">Дата&nbsp;c</th>
                             <th scope="col"></th>
                             <th scope="col"></th>
                         </tr>
                         </thead>
                         <tbody>
-                        @forelse ($newsList as $newsItem)
+                        @forelse ($sources as $source)
                             <tr>
-                                <th scope="row">{{$newsItem->id}}</th>
-                                <td>{{$newsItem->title}}</td>
-                                <td>{{$newsItem->source_id}}</td>
-                                <td>{{$newsItem->category_id}}</td>
-                                <td>{{$newsItem->description}}</td>
-                                <td>{{$newsItem->author}}</td>
-                                <td>{{$newsItem->status}}</td>
-                                <td class="text-nowrap">{{$newsItem->created_at}}</td>
+                                <th scope="row">{{$source->id}}</th>
+                                <td>{{$source->name}}</td>
+                                <td>{{$source->description}}</td>
+                                <td>{{$source->url}}</td>
+                                <td class="text-nowrap">{{$source->created_at}}</td>
                                 <td class="text-center p-0" style="width: 40px">
-                                    <a href="{{route('admin.news.edit',['news'=>$newsItem->id])}}" class="btn link-primary">
+                                    <a href="{{route('admin.sources.edit',['source'=>$source->id])}}"
+                                       class="btn link-primary">
                                         <i class="bi bi-pen"></i>
                                     </a>
                                 </td>
@@ -54,7 +49,7 @@
                                 </td>
                             </tr>
                         @empty
-                            <h6>Новостей пока нет</h6>
+                            <h6>Источников новостей пока нет</h6>
                         @endforelse
                         </tbody>
                     </table>

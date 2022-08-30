@@ -2831,10 +2831,14 @@ var ReactApp = function ReactApp() {
         className: !isShowFilters ? ' d-none' : '',
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], {
           onSubmit: handleChangeContent,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("h6", {
-            children: ["\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: 'd-flex align-items-center mb-2',
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h6", {
+              className: 'm-0',
+              children: "\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
               variant: 'outline-secondary',
-              className: 'px-2 py-0 ml-3 btn-sm',
+              className: 'px-2 py-0 ms-3 btn-sm',
               onClick: changeShowAllCategories,
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("small", {
                 children: !isShowAllCategories ? 'все >>' : '<< скрыть'
@@ -2842,31 +2846,34 @@ var ReactApp = function ReactApp() {
             })]
           }), categories.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
             children: "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430..."
-          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-            className: 'd-flex flex-column',
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"].Check, {
-              inline: true,
-              label: 'Все',
-              name: "categories-group",
-              type: 'checkbox',
-              id: "category-all",
-              checked: isSelectAllCategories,
-              className: 'small',
-              onChange: selectAllCategories
-            }), categories.length && categories.map(function (category) {
-              return category.show && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"].Check, {
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+            className: 'container',
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+              className: 'row',
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"].Check, {
                 inline: true,
-                label: category.title,
+                label: 'Все',
                 name: "categories-group",
                 type: 'checkbox',
-                id: "category-" + category.id,
-                checked: category.selected,
-                className: 'small',
-                onChange: function onChange() {
-                  return changeCheckedCategories(category);
-                }
-              }, category.id);
-            })]
+                id: "category-all",
+                checked: isSelectAllCategories,
+                className: 'small m-0 col-12 col-sm-6 col-md-4 col-lg-3',
+                onChange: selectAllCategories
+              }), categories.length && categories.map(function (category) {
+                return category.show && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"].Check, {
+                  inline: true,
+                  label: category.title,
+                  name: "categories-group",
+                  type: 'checkbox',
+                  id: "category-" + category.id,
+                  checked: category.selected,
+                  className: 'small m-0 col-12 col-sm-6 col-md-4 col-lg-3 text-nowrap',
+                  onChange: function onChange() {
+                    return changeCheckedCategories(category);
+                  }
+                }, category.id);
+              })]
+            })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
             variant: 'outline-secondary',
             className: 'btn-sm mt-2',
@@ -2889,7 +2896,7 @@ var ReactApp = function ReactApp() {
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       id: "react-newslist-container",
-      className: "row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4",
+      className: "row row-cols-1 row-cols-md-2  row-cols-xl-3",
       children: !!news.length && news.map(function (item) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
           href: "/news/" + item.id,

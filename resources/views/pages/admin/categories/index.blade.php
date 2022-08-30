@@ -30,12 +30,12 @@
                         <tbody>
                         @forelse ($categories as $category)
                             <tr>
-                                <th scope="row">{{$category['id']}}</th>
-                                <td>{{$category['title']}}</td>
-                                <td>{{$category['author']}}</td>
-                                <td class="text-nowrap">{{$category['created_at']}}</td>
+                                <th scope="row">{{$category->id}}</th>
+                                <td>{{$category->title}}</td>
+                                <td>{{$category->author}}</td>
+                                <td class="text-nowrap">{{$category->created_at}}</td>
                                 <td class="text-center p-0" style="width: 40px">
-                                    <a href="{{route('admin.categories.edit',['category'=>$category['id']])}}"
+                                    <a href="{{route('admin.categories.edit',['category'=>$category->id])}}"
                                        class="btn link-primary">
                                         <i class="bi bi-pen"></i>
                                     </a>

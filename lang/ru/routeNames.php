@@ -18,5 +18,6 @@ return [
     'admin.news.create' => 'Добавление новости',
     'admin.categories' => 'Список категорий',
     'admin.categories.create' => 'Добавление категории',
-
+    'admin.sources' => 'Список источников',
+    'admin.sources.create' => 'Добавление источника',
 ];

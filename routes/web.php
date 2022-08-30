@@ -10,6 +10,7 @@ use \App\Http\Controllers\CategoryController;
 use \App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use \App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\SourceController as AdminSourceController;
 
 use \App\Http\Controllers\FeedbackController;
 use \App\Http\Controllers\OrderController;
@@ -53,6 +54,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         ->name('index','news');
     Route::resource('/categories',AdminCategoryController::class)
         ->name('index','categories');
+    Route::resource('/sources',AdminSourceController::class)
+        ->name('index','sources');
 });
 
 Route::group(['prefix'=>'fb', 'as'=>'feedback.'],function (){

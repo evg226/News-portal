@@ -2,19 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class NewsController extends Controller
 {
     public function index(Request $request)
     {
-        $categories = $request->has('categories')?$request->get('categories'):[];
+        $newsList=[];
+        if ($request->has('categories')) {
+            $categories = array_map('intval', $request->query('categories'));
+            $newsList = News::whereIn('category_id',$categories)->select()->get();
+        } else {
+            $newsList = News::all();
+        }
 
-        $newsList = $this->generateNews($categories);
+
         return
             $request->expectsJson() ?
-                response()->json($newsList):
+                response()->json($newsList) :
                 view('pages.news.index', [
                         'newsList' => $newsList
                     ]
