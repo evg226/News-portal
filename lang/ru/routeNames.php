@@ -16,8 +16,12 @@ return [
     'admin.index' => 'Home',
     'admin.news' => 'Список новостей',
     'admin.news.create' => 'Добавление новости',
+    'admin.news.edit' => 'Изменение новости',
     'admin.categories' => 'Список категорий',
     'admin.categories.create' => 'Добавление категории',
+    'admin.categories.edit' => 'Изменение категории',
     'admin.sources' => 'Список источников',
     'admin.sources.create' => 'Добавление источника',
+    'admin.sources.edit' => 'Изменение источника',
+
 ];

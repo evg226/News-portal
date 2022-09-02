@@ -54,6 +54,7 @@
                         </tbody>
                     </table>
                 </div>
+                {{$sources->links()}}
             </div>
         </div>
     </section>

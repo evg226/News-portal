@@ -36,8 +36,8 @@
                             <tr>
                                 <th scope="row">{{$newsItem->id}}</th>
                                 <td>{{$newsItem->title}}</td>
-                                <td>{{$newsItem->source_id}}</td>
-                                <td>{{$newsItem->category_id}}</td>
+                                <td>{{$newsItem->source->name}}</td>
+                                <td>{{$newsItem->category->title}}</td>
                                 <td>{{$newsItem->description}}</td>
                                 <td>{{$newsItem->author}}</td>
                                 <td>{{$newsItem->status}}</td>
@@ -58,6 +58,7 @@
                         @endforelse
                         </tbody>
                     </table>
+                    {{$newsList->links()}}
                 </div>
             </div>
         </div>

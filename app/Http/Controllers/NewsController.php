@@ -31,8 +31,9 @@ class NewsController extends Controller
 
     public function show(Request $request, int $id): View
     {
+        $news=News::find($id);
         return view('pages.news.item', [
-                'newsItem' => $this->generateNewsItem($id)
+                'newsItem' => $news
             ]
         );
     }

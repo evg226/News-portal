@@ -30,7 +30,29 @@
                         <tbody>
                         @forelse ($categories as $category)
                             <tr>
-                                <th scope="row">{{$category->id}}</th>
+                                <th scope="row">
+                                    <div class="dropdown">
+                                        <div class="dropdown-toggle" type="button"
+                                             id="dropdownMenuButton{{$category->id}}" data-bs-toggle="dropdown"
+                                             aria-expanded="false">
+                                            {{$category->id}}
+                                        </div>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton{{$category->id}}">
+                                            <li><a class="dropdown-item" href="{{route('news',['categories'=>[$category->id]])}}">
+                                                    <strong>Все {{$category->title}}</strong>
+                                                </a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            @foreach($category->news as $news)
+                                                <li><a class="dropdown-item" href="{{route('news.item',['id'=>$news->id])}}">
+                                                        <span>{{$news->id}}</span>
+                                                        <span>{{$news->title}}</span>
+                                                    </a></li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                            </th>
                                 <td>{{$category->title}}</td>
                                 <td>{{$category->author}}</td>
                                 <td class="text-nowrap">{{$category->created_at}}</td>
@@ -52,6 +74,7 @@
                         </tbody>
                     </table>
                 </div>
+                {{$categories->links()}}
             </div>
         </div>
     </section>

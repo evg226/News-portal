@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Source;
+use App\QueryBuilders\SourceQueryBuilder;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -14,9 +16,9 @@ class SourceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(): View
+    public function index(SourceQueryBuilder $builder): View
     {
-        $sources = Source::all();
+        $sources = $builder->get();
         return view('pages.admin.sources.index', ['sources' => $sources]);
     }
 
@@ -34,17 +36,25 @@ class SourceController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request,SourceQueryBuilder $builder):RedirectResponse
     {
+
         $request->validate([
                 'name' => ['required', 'string', 'min:5', 'max:255'],
                 'url' => ['required', 'string', 'min:3', 'max:255']
             ]
         );
         $validated = $request->only('name', 'description', 'url');
-        return redirect(route('admin.sources'));
+        if ($builder->create($validated)){
+            return
+                redirect(route('admin.sources'))
+                    ->with('success', 'Источник новостей добавлен успешно');
+        }
+        return
+            back()
+                ->with('error', 'Ошибка при добавлении источника новостей');
     }
 
     /**
@@ -64,9 +74,9 @@ class SourceController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Source $source):View
     {
-        //
+        return view('pages.admin.sources.edit',['source'=>$source]);
     }
 
     /**
@@ -76,9 +86,26 @@ class SourceController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(
+        Request $request,
+        SourceQueryBuilder $builder,
+        Source $source
+    ):RedirectResponse
     {
-        //
+        $request->validate([
+                'name' => ['required', 'string', 'min:5', 'max:255'],
+                'url' => ['required', 'string', 'min:3', 'max:255']
+            ]
+        );
+        $validated = $request->only('name', 'description', 'url');
+        if ($builder->update($source,$validated)){
+            return
+                redirect(route('admin.sources'))
+                    ->with('success', 'Источник новостей изменен успешно');
+        }
+        return
+            back()
+                ->with('error', 'Ошибка при изменении источника новостей');
     }
 
     /**

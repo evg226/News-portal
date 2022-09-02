@@ -25,7 +25,6 @@ class NewsSeeder extends Seeder
     {
         $faker = Factory::create();
         $news = [];
-        $statuses = [News::DRAFT, News::ACTIVE, News::DRAFT];
         for ($i = 1; $i <= 100; $i++) {
             $news[] = [
                 'title' => $faker->sentence(3),
@@ -33,7 +32,7 @@ class NewsSeeder extends Seeder
                 'content' => $faker->sentences(50, true),
                 'image' => $faker->imageUrl(),
                 'author' => $faker->name(),
-                'status' => $statuses[rand(0, 2)],
+                'status' => array_values(News::STATUSES)[rand(0, 2)],
                 'category_id' => rand(1, 20),
                 'source_id' => rand(1, 10),
             ];

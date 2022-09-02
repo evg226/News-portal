@@ -22,12 +22,13 @@ class Breadcrumbs extends Component
             if ($breadcrumb === 'admin') {
                 $this->title = __('routeNames.' . $breadcrumb . '.index');
                 $this->breadcrumbs[$breadcrumb . '.index'] = $this->title;
-            } else {
+            } elseif ((int)$breadcrumb === 0) {
                 $link .= ".$breadcrumb";
                 $this->title = __('routeNames.' . $link);
                 $this->breadcrumbs[$link] = $this->title;
             }
         }
+//        array_pop( $this->breadcrumbs);
     }
 
     /**

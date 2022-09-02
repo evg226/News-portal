@@ -4,7 +4,13 @@
     <nav>
         <ol class="breadcrumb">
             @foreach($breadcrumbs as $link=>$name)
-                <li class="breadcrumb-item"><a href="{{route($link)}}">{{$name}}</a></li>
+                <li class="breadcrumb-item">
+                    @if($link!==array_key_last($breadcrumbs))
+                        <a href="{{route($link)}}">{{$name}}</a>
+                    @else
+                        <span>{{$name}}</span>
+                    @endif
+                </li>
             @endforeach
         </ol>
     </nav>

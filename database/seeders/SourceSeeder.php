@@ -3,10 +3,9 @@
 namespace Database\Seeders;
 
 use Faker\Factory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use mysql_xdevapi\Table;
+
 
 class SourceSeeder extends Seeder
 {
@@ -24,8 +23,12 @@ class SourceSeeder extends Seeder
     protected function generateSources(): array
     {
         $faker = Factory::create();
-        $sources = [];
-        for ($i = 1; $i <= 10; $i++) {
+        $sources[] = [
+            'name' => 'Нативный',
+            'description' => 'Собственый источник новостей',
+            'url' => config('app.url')
+        ];
+        for ($i = 2; $i <= 10; $i++) {
             $sources[] = [
                 'name' => $faker->sentence(2),
                 'description' => $faker->sentence(5),

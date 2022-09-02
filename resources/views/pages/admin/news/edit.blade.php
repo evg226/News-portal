@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    @parent - Список новостей - Новая
+    @parent - Список новостей - Изменение
 @endsection
 
 @section('content')
@@ -11,15 +11,16 @@
             <div class="col-sm-9 col-md-9 col-lg-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Добавить новость</h5>
+                        <h5 class="card-title">Изменить новость</h5>
 
                         <!-- Multi Columns Form -->
-                        <form class="row g-3" method="post" action="{{route('admin.news.store')}}">
+                        <form class="row g-3" method="post" action="{{route('admin.news.update',['news'=>$newsItem])}}">
                             @csrf
+                            @method('put')
                             <div class="col-md-8">
                                 <label for="title" class="form-label">Название</label>
                                 <input type="text" class="form-control @error('title') border-danger @enderror"
-                                       id="title" name="title" value="{{old('title')}}">
+                                       id="title" name="title" value="{{old('title')?:$newsItem->title}}">
                                 @error('title')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
@@ -27,7 +28,7 @@
                             <div class="col-md-4">
                                 <label for="author" class="form-label">Автор</label>
                                 <input type="text" class="form-control @error('author') border-danger @enderror"
-                                       id="author" name="author" value="{{old('author')}}">
+                                       id="author" name="author" value="{{old('author')?:$newsItem->author}}">
                                 @error('author')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
@@ -35,7 +36,7 @@
                             <div class="col-md-6">
                                 <label for="description" class="form-label">Описание </label>
                                 <input type="text" class="form-control @error('description') border-danger @enderror"
-                                       id="description" name="description" value="{{old('description')}}">
+                                       id="description" name="description" value="{{old('description')?:$newsItem->description}}">
                                 @error('description')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
@@ -47,7 +48,7 @@
                                     @foreach($statuses as $key=>$status)
                                         <option
                                             value="{{$key}}"
-                                            @if($key===old('status')) selected @endif
+                                            @if($key===(old('status')?:$newsItem->status)) selected @endif
                                         >
                                             {{$status}}
                                         </option>
@@ -57,7 +58,7 @@
                             <div class="col-md-6">
                                 <label for="image" class="form-label">Фото</label>
                                 <input type="text" class="form-control @error('image') border-danger @enderror"
-                                       id="image" name="image" value="{{old('image')}}">
+                                       id="image" name="image" value="{{old('image')?:$newsItem->image}}">
                                 @error('image')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
@@ -69,7 +70,7 @@
                                     @foreach($categories as $category)
                                         <option
                                             value="{{$category->id}}"
-                                            @if($category->id===(int)old('category_id')) selected @endif
+                                            @if($category->id===(int)(old('category_id')?:$newsItem->category_id)) selected @endif
                                         >
                                             {{$category->title}}
                                         </option>
@@ -80,7 +81,7 @@
                                 <label for="content" class="form-label">Контент</label>
                                 <textarea class="form-control @error('content') border-danger @enderror"
                                           id="content" name="content" rows="15"
-                                          style="font-size: 0.8rem">{!! old('content') !!}</textarea>
+                                          style="font-size: 0.8rem">{!! old('content')?:$newsItem->content !!}</textarea>
                                 @error('content')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror

@@ -52,9 +52,9 @@
                             @elseguest
                                 <li><a class="dropdown-item" href="">Личный кабинет</a></li>
                                 <li><a class="dropdown-item" href="{{route('admin.index')}}">Админ панель</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
                                 <li><a class="dropdown-item" href="#">Выйти</a></li>
                             @endguest
                         </ul>

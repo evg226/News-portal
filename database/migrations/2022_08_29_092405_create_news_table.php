@@ -23,12 +23,8 @@ return new class extends Migration {
             $table->string('image')
                 ->nullable();
             $table->text('content');
-            $table->enum('status', [
-                News::DRAFT,
-                News::ACTIVE,
-                News::BLOCKED
-            ])
-                ->default(News::DRAFT);
+            $table->enum('status', array_values(News::STATUSES))
+                ->default(News::STATUSES['DRAFT']);
             $table->timestamps();
         });
     }

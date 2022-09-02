@@ -38,7 +38,7 @@
             <x-breadcrumbs></x-breadcrumbs>
         </div>
 
-{{--        @include('includes.messages')--}}
+        @include('includes.messages')
 
         @yield('content')
 
