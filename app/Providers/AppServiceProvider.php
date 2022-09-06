@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\QueryBuilders\CategoryQueryBuilder;
+use App\QueryBuilders\NewsQueryBuilder;
+use App\QueryBuilders\SourceQueryBuilder;
 use App\View\Components\Breadcrumbs;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
@@ -17,6 +19,9 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(CategoryQueryBuilder::class);
+        $this->app->bind(SourceQueryBuilder::class);
+        $this->app->bind(NewsQueryBuilder::class);
+
     }
 
     /**

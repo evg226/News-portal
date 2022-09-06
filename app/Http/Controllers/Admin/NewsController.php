@@ -3,13 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\News\CreateRequest as NewsCreateRequest;
+use App\Http\Requests\News\EditRequest as NewsEditRequest;
 use App\Models\Category;
 use App\Models\News;
 use App\QueryBuilders\CategoryQueryBuilder;
 use App\QueryBuilders\NewsQueryBuilder;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\View\View;
+
 
 class NewsController extends Controller
 {
@@ -45,31 +50,19 @@ class NewsController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(NewsCreateRequest $request)
     {
-        $request->validate([
-            'title' => ['required', 'string', 'min:5', 'max:100'],
-            'description' => ['required', 'string', 'min:10', 'max:100'],
-            'content' => ['required', 'string', 'min:20'],
-            'image' => ['required', 'string', 'min:10', 'max:254'],
-            'author' => ['required', 'string', 'min:3', 'max:50'],
-            'status' => ['required'],
-            'category_id' => ['required', 'integer', 'min:1', 'exists:categories,id'],
-        ]);
-
-        $validated = $request->only(
-            'title', 'description', 'content', 'image', 'author', 'status', 'category_id'
-        );
+        $validated = $request->validated();
         $validated['source_id'] = 1;
 
         if (News::create($validated)) {
             return
                 redirect(route('admin.news'))
-                    ->with('success', 'Новость добавлена успешно');
+                    ->with('success', __('messages.admin.create.success', ['attribute' => $validated['title']]));
         }
         return
             back()
-                ->with('error', 'Ошибка при добавлении новости');
+                ->with('error', __('messages.admin.create.error', ['attribute' => $validated['title']]));
     }
 
     /**
@@ -106,43 +99,40 @@ class NewsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(
-        Request          $request,
+        NewsEditRequest  $request,
         NewsQueryBuilder $builder,
         News             $news
     ): RedirectResponse
     {
-        $request->validate([
-            'title' => ['required', 'string', 'min:5', 'max:100'],
-            'description' => ['required', 'string', 'min:10', 'max:100'],
-            'content' => ['required', 'string', 'min:20'],
-            'image' => ['required', 'string', 'min:10', 'max:254'],
-            'author' => ['required', 'string', 'min:3', 'max:50'],
-            'status' => ['required'],
-            'category_id' => ['required', 'integer', 'min:1', 'exists:categories,id'],
-        ]);
-
-        $validated = $request->only(
-            'title', 'description', 'content', 'image', 'author', 'status', 'category_id'
-        );
+        $validated = $request->validated();
 
         if ($builder->update($news, $validated)) {
             return
                 redirect(route('admin.news'))
-                    ->with('success', 'Новость изменена успешно');
+                    ->with('success', __('messages.admin.update.success', ['attribute' => $validated['title']]));
         }
         return
             back()
-                ->with('error', 'Ошибка при изменении новости');
+                ->with('error', __('messages.admin.update.error', ['attribute' => $validated['title']]));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param News $news
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(Request $request, News $news):JsonResponse
     {
-        //
+        if ($request->expectsJson()) {
+            try {
+                $news->delete();
+                return response()->json(['success' => true]);
+            } catch (\Exception $exception) {
+                return response()->json(['error' => $exception->getMessage()]);
+            }
+        } else
+            return response()->json(['error' => 'Ожидается запрос c json-параметрами'], 404);
     }
 }

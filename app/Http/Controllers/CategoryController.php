@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\News;
 use Illuminate\Http\Request;
-use JetBrains\PhpStorm\NoReturn;
+
 
 class CategoryController extends Controller
 {
@@ -21,7 +21,7 @@ class CategoryController extends Controller
 
     public function show(Request $request, int $id)
     {
-        $news=News::all()->where('category_id',$id);
+        $news = News::all()->where('category_id', $id);
         return
             $request->expectsJson() ?
                 response()->json($news) :

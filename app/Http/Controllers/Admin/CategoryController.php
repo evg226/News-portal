@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Categories\CreateRequest as CategoryCreateRequest;
+use App\Http\Requests\Categories\EditRequest as CategoryEditRequest;
 use App\Models\Category;
-use App\Models\News;
 use App\QueryBuilders\CategoryQueryBuilder;
+use http\Env\Response;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 
 class CategoryController extends Controller
@@ -41,19 +41,15 @@ class CategoryController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, CategoryQueryBuilder $categoryQueryBuilder): RedirectResponse
+    public function store(CategoryCreateRequest $request, CategoryQueryBuilder $categoryQueryBuilder): RedirectResponse
     {
-        $request->validate([
-            'title' => ['required', 'string', 'min:5', 'max:100'],
-            'author' => ['required', 'string', 'min:3', 'max:50']
-        ]);
-        $validated = $request->only('title', 'author');
+        $validated = $request->validated();
         if ($categoryQueryBuilder->create($validated)) {
             return redirect(route('admin.categories'))
-                ->with('success', 'Категория добавлена успешно');
+                ->with('success', __('messages.admin.create.success', ['attribute' => $validated['title']]));
         }
         return back()
-            ->with('error', 'Ошибка при добавлении категории');
+            ->with('error', __('messages.admin.create.error', ['attribute' => $validated['title']]));
     }
 
     /**
@@ -88,31 +84,36 @@ class CategoryController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Routing\Redirector|RedirectResponse
      */
     public function update(
-        Request              $request,
+        CategoryEditRequest  $request,
         Category             $category,
         CategoryQueryBuilder $categoryQueryBuilder): RedirectResponse
     {
-        $request->validate([
-            'title' => ['required', 'string', 'min:5', 'max:100'],
-            'author' => ['required', 'string', 'min:3', 'max:50']
-        ]);
-        $validated = $request->only('title', 'author');
+        $validated = $request->validated();
         if ($categoryQueryBuilder->update($category, $validated)) {
             return redirect(route('admin.categories'))
-                ->with('success', 'Категория изменена успешно');
+                ->with('success', __('messages.admin.update.success', ['attribute' => $validated['title']]));
         }
         return back()
-            ->with('error', 'Ошибка при изменеии категории');
+            ->with('error', __('messages.admin.update.error', ['attribute' => $validated['title']]));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Category $category
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function destroy(Request $request, Category $category): \Illuminate\Http\JsonResponse
     {
-        //
+        if ($request->expectsJson()) {
+            try {
+                $category->delete();
+                return response()->json(['success' => true]);
+            } catch (\Exception $exception) {
+                return response()->json(['error'=>$exception->getMessage()]);
+            }
+        } else
+            return response()->json(['error'=>'Ожидается запрос c json-параметрами'],404);
     }
 }

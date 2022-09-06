@@ -19,23 +19,23 @@
                             <div class="col-md-12">
                                 <label for="name" class="form-label">Название</label>
                                 <input type="text" class="form-control @error('name') border-danger @enderror" id="name" name="name" placeholder="Название"
-                                       value="{{$source->name}}">
+                                       value="{{old('name')?:$source->name}}">
                                 @error('name')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
                             </div>
                             <div class="col-md-12">
-                                <label for="description" class="form-label">Автор</label>
+                                <label for="description" class="form-label">Описание</label>
                                 <input type="text" class="form-control @error('description') border-danger @enderror" id="description" name="description" placeholder="Описание"
-                                       value="{{$source->description}}">
-                                @error('name')
+                                       value="{{old('description')?:$source->description}}">
+                                @error('descripton')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
                             </div>
                             <div class="col-md-12">
                                 <label for="url" class="form-label">Ccылка</label>
                                 <input type="text" class="form-control @error('url') border-danger @enderror" id="url" name="url" placeholder="Ссылка"
-                                       value="{{$source->url}}">
+                                       value="{{old('url')?:$source->url}}">
                                 @error('url')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
+    <meta name="csrf-token" content="{{@csrf_token()}}">
     <title>
         @section('title')
             {{config('app.name')}} Админ панель
@@ -47,9 +47,8 @@
     <x-admin.footer></x-admin.footer>
 </div>
 
-
 <script src="{{asset('js/admin.js')}}"></script>
-<script src="{{asset('js/bootstrap.js')}}"></script>
+<script src="{{asset('js/remove.js')}}"></script>
 
 </body>
 

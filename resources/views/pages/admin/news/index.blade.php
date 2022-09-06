@@ -33,7 +33,7 @@
                         </thead>
                         <tbody>
                         @forelse ($newsList as $newsItem)
-                            <tr>
+                            <tr id="news{{$newsItem->id}}">
                                 <th scope="row">{{$newsItem->id}}</th>
                                 <td>{{$newsItem->title}}</td>
                                 <td>{{$newsItem->source->name}}</td>
@@ -48,7 +48,7 @@
                                     </a>
                                 </td>
                                 <td class="text-center p-0" style="width: 40px">
-                                    <a href="javascript://" class="btn link-danger">
+                                    <a href="javascript:;" class="btn link-danger remove" id="news{{$newsItem->id}}">
                                         <i class="bi bi-dash-circle"></i>
                                     </a>
                                 </td>

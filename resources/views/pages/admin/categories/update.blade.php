@@ -21,7 +21,7 @@
                                 <label for="title" class="form-label">Название</label>
                                 <input type="text" class="form-control @error('title') border-danger @enderror"
                                        id="title" name="title" placeholder="Название"
-                                       value="{{$category->title}}">
+                                       value="{{old('title')?:$category->title}}">
                                 @error('title')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
@@ -30,7 +30,7 @@
                                 <label for="author" class="form-label">Автор</label>
                                 <input type="text" class="form-control @error('author') border-danger @enderror"
                                        id="author" name="author" placeholder="Автор"
-                                       value="{{$category->author}}">
+                                       value="{{old('author')?:$category->author}}">
                                 @error('author')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror

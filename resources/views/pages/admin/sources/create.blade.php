@@ -24,10 +24,10 @@
                                 @enderror
                             </div>
                             <div class="col-md-12">
-                                <label for="description" class="form-label">Автор</label>
+                                <label for="description" class="form-label">Описание</label>
                                 <input type="text" class="form-control @error('description') border-danger @enderror" id="description" name="description" placeholder="Описание"
                                        value="{{old('description')}}">
-                                @error('name')
+                                @error('description')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
                             </div>

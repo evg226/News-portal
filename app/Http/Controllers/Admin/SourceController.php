@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Sources\CreateRequest as SourcesCreateRequest;
+use App\Http\Requests\Sources\EditRequest as SourcesEditRequest;
 use App\Models\Source;
 use App\QueryBuilders\SourceQueryBuilder;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\View\View;
+
 
 class SourceController extends Controller
 {
@@ -38,23 +43,17 @@ class SourceController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request,SourceQueryBuilder $builder):RedirectResponse
+    public function store(SourcesCreateRequest $request, SourceQueryBuilder $builder): RedirectResponse
     {
-
-        $request->validate([
-                'name' => ['required', 'string', 'min:5', 'max:255'],
-                'url' => ['required', 'string', 'min:3', 'max:255']
-            ]
-        );
-        $validated = $request->only('name', 'description', 'url');
-        if ($builder->create($validated)){
+        $validated = $request->validated();
+        if ($builder->create($validated)) {
             return
                 redirect(route('admin.sources'))
-                    ->with('success', 'Источник новостей добавлен успешно');
+                    ->with('success', __('messages.admin.create.success', ['attribute' => $validated['name']]));
         }
         return
             back()
-                ->with('error', 'Ошибка при добавлении источника новостей');
+                ->with('success', __('messages.admin.create.error', ['attribute' => $validated['name']]));
     }
 
     /**
@@ -74,9 +73,9 @@ class SourceController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Source $source):View
+    public function edit(Source $source): View
     {
-        return view('pages.admin.sources.edit',['source'=>$source]);
+        return view('pages.admin.sources.edit', ['source' => $source]);
     }
 
     /**
@@ -87,35 +86,38 @@ class SourceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(
-        Request $request,
+        SourcesEditRequest $request,
         SourceQueryBuilder $builder,
-        Source $source
-    ):RedirectResponse
+        Source             $source
+    ): RedirectResponse
     {
-        $request->validate([
-                'name' => ['required', 'string', 'min:5', 'max:255'],
-                'url' => ['required', 'string', 'min:3', 'max:255']
-            ]
-        );
-        $validated = $request->only('name', 'description', 'url');
-        if ($builder->update($source,$validated)){
+        $validated = $request->validated();
+        if ($builder->update($source, $validated)) {
             return
                 redirect(route('admin.sources'))
-                    ->with('success', 'Источник новостей изменен успешно');
+                    ->with('success', __('messages.admin.update.success', ['attribute' => $validated['name']]));
         }
         return
             back()
-                ->with('error', 'Ошибка при изменении источника новостей');
+                ->with('error', __('messages.admin.update.error', ['attribute' => $validated['name']]));
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function destroy(Request $request, Source $source):JsonResponse
     {
-        //
+        if ($request->expectsJson()) {
+            try {
+                $source->delete();
+                return response()->json(['success' => true]);
+            } catch (\Exception $exception) {
+                return response()->json(['error' => $exception->getMessage()]);
+            }
+        } else
+            return response()->json(['error' => 'Ожидается запрос c json-параметрами'], 404);
     }
 }

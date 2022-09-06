@@ -29,7 +29,7 @@
                         </thead>
                         <tbody>
                         @forelse ($categories as $category)
-                            <tr>
+                            <tr id="categories{{$category->id}}">
                                 <th scope="row">
                                     <div class="dropdown">
                                         <div class="dropdown-toggle" type="button"
@@ -63,7 +63,7 @@
                                     </a>
                                 </td>
                                 <td class="text-center p-0" style="width: 40px">
-                                    <a href="javascript://" class="btn link-danger">
+                                    <a href="javascript:;" class="btn link-danger remove" id="categories{{$category->id}}">
                                         <i class="bi bi-dash-circle"></i>
                                     </a>
                                 </td>
@@ -77,6 +77,7 @@
                 {{$categories->links()}}
             </div>
         </div>
+
     </section>
 
 @endsection

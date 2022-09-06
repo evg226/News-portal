@@ -30,7 +30,7 @@
                         </thead>
                         <tbody>
                         @forelse ($sources as $source)
-                            <tr>
+                            <tr id="sources{{$source->id}}">
                                 <th scope="row">{{$source->id}}</th>
                                 <td>{{$source->name}}</td>
                                 <td>{{$source->description}}</td>
@@ -43,7 +43,7 @@
                                     </a>
                                 </td>
                                 <td class="text-center p-0" style="width: 40px">
-                                    <a href="javascript://" class="btn link-danger">
+                                    <a href="javascript:;" class="btn link-danger remove" id="sources{{$source->id}}">
                                         <i class="bi bi-dash-circle"></i>
                                     </a>
                                 </td>
