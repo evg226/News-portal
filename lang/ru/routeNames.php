@@ -23,5 +23,6 @@ return [
     'admin.sources' => 'Список источников',
     'admin.sources.create' => 'Добавление источника',
     'admin.sources.edit' => 'Изменение источника',
-
+    'admin.users' => 'Пользователи',
+    'admin.users.edit' => 'Изменение пользователя',
 ];

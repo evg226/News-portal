@@ -10,7 +10,6 @@ use App\QueryBuilders\SourceQueryBuilder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\View\View;
 
 
@@ -115,7 +114,7 @@ class SourceController extends Controller
                 $source->delete();
                 return response()->json(['success' => true]);
             } catch (\Exception $exception) {
-                return response()->json(['error' => $exception->getMessage()]);
+                return response()->json($exception->getMessage());
             }
         } else
             return response()->json(['error' => 'Ожидается запрос c json-параметрами'], 404);

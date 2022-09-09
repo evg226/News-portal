@@ -111,7 +111,7 @@ class CategoryController extends Controller
                 $category->delete();
                 return response()->json(['success' => true]);
             } catch (\Exception $exception) {
-                return response()->json(['error'=>$exception->getMessage()]);
+                return response()->json($exception->getMessage());
             }
         } else
             return response()->json(['error'=>'Ожидается запрос c json-параметрами'],404);

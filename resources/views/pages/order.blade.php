@@ -6,7 +6,6 @@
 
 @section('content')
     <h1>Заказ на данные</h1>
-    @include('includes.messages')
     <div class="d-flex justify-content-center">
         <div class="card col-lg-6">
             <div class="card-body">

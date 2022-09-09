@@ -4829,9 +4829,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 document.addEventListener('DOMContentLoaded', function () {
+  var alert = function alert(type, msg) {
+    var id = Date.now();
+    document.querySelector('.pagetitle').insertAdjacentHTML('afterend', "\n                <div class=\"alert alert-".concat(type, " alert-dismissible fade show\" role=\"alert\" id=\"").concat(id, "\">\n                    ").concat(msg, "\n                    <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\"></button>\n                </div>\n            "));
+    setTimeout(function () {
+      document.getElementById("".concat(id)).remove();
+    }, 3000);
+    console.log(msg);
+  };
+
   document.querySelectorAll('.remove').forEach(function (btn) {
     var entity = btn.id.match(/[a-z]+/)[0];
-    var id = btn.id.match(/\d+/)[0];
+    var id = btn.id.match(/\d+/)[0]; // btn.addEventListener('click', () => alert('danger', '1111'));
+
     btn.addEventListener('click', /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
       var result;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
@@ -4851,9 +4861,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
               if (result && result.success) {
                 document.querySelector("#".concat(entity).concat(id)).remove();
-                console.log("".concat(id, " \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u0443\u0434\u0430\u043B\u0435\u043D"));
+                alert('success', "ID ".concat(id, " \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u0443\u0434\u0430\u043B\u0435\u043D"));
               } else {
-                console.log("Ошибка удаления: " + result.error);
+                alert('danger', result);
               }
 
             case 5:
@@ -4889,9 +4899,7 @@ document.addEventListener('DOMContentLoaded', function () {
             case 8:
               _context2.prev = 8;
               _context2.t0 = _context2["catch"](0);
-              return _context2.abrupt("return", {
-                error: _context2.t0.message
-              });
+              return _context2.abrupt("return", _context2.t0.response.data.error);
 
             case 11:
             case "end":

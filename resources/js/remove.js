@@ -1,17 +1,33 @@
 import axios from "axios";
 
 document.addEventListener('DOMContentLoaded', () => {
+
+    const alert = (type, msg) => {
+        const id = Date.now();
+        document.querySelector('.pagetitle').insertAdjacentHTML('afterend', `
+                <div class="alert alert-${type} alert-dismissible fade show" role="alert" id="${id}">
+                    ${msg}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            `);
+        setTimeout(() => {
+            document.getElementById(`${id}`).remove()
+        }, 3000);
+        console.log(msg);
+    }
+
     document.querySelectorAll('.remove').forEach(btn => {
         const entity = btn.id.match(/[a-z]+/)[0]
         const id = btn.id.match(/\d+/)[0];
+        // btn.addEventListener('click', () => alert('danger', '1111'));
         btn.addEventListener('click', async () => {
             if (confirm('Вы действительно хотите удалить: ' + id)) {
                 const result = await send(`/admin/${entity}/${id}`)
                 if (result && result.success) {
                     document.querySelector(`#${entity}${id}`).remove();
-                    console.log(`${id} успешно удален`);
+                    alert('success', `ID ${id} успешно удален`);
                 } else {
-                    console.log("Ошибка удаления: " + result.error)
+                    alert('danger', result);
                 }
             }
         })
@@ -27,9 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             return data
         } catch (e) {
-            return ({error: e.message})
+            return e.response.data.error
         }
-
     }
 });
 

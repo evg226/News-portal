@@ -31,34 +31,37 @@
             </a>
         </li>
 
+        <li class="nav-item">
+            <a class="nav-link @if(!request()->routeIs('admin.users*')) collapsed @endif" href="{{route('admin.users')}}">
+                <i class="bi bi-chat-left-text"></i>
+                <span>Пользователи</span>
+            </a>
+        </li>
+
         <li class="nav-heading">User</li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="users-profile.html">
+            <a class="nav-link collapsed" href="{{route('profile')}}">
                 <i class="bi bi-person"></i>
                 <span>Profile</span>
             </a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="pages-contact.html">
-                <i class="bi bi-envelope"></i>
-                <span>Contact</span>
-            </a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="pages-register.html">
-                <i class="bi bi-card-list"></i>
-                <span>Register</span>
-            </a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="pages-login.html">
+            <a class="nav-link collapsed" href="{{route('home')}}">
                 <i class="bi bi-box-arrow-in-right"></i>
-                <span>Login</span>
+                <span>Выйти на сайт</span>
             </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="javascript:;"
+               onclick="handleClickLogout(event);"
+            >
+                <i class="bi bi-box-arrow-in-right"></i>
+                <span>{{__('auth.Logout')}}</span>
+            </a>
+            @include('includes.logout')
         </li>
 
     </ul>

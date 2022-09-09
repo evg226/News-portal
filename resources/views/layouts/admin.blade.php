@@ -48,6 +48,7 @@
 </div>
 
 <script src="{{asset('js/admin.js')}}"></script>
+<script src="{{asset('js/bootstrap.js')}}"></script>
 <script src="{{asset('js/remove.js')}}"></script>
 
 </body>

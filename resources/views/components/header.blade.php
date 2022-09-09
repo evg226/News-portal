@@ -30,33 +30,49 @@
                     <li class="nav-item dropdown">
                         <span class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                               aria-expanded="false">
-                            User
+                            @guest
+                                Гость
+                            @endguest
+                            @auth
+                                {{auth()->user()->name}}
+                            @endauth
+
                         </span>
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
                             @guest
-                                <li><a href="{{route('admin.index')}}"
+                                <li><a href="{{route('login')}}"
                                        class="dropdown-item"
                                     >Войти</a>
                                 </li>
                                 <hr class="dropdown-divider border-secondary">
                             @endguest
+                            @auth
+                                <li><a class="dropdown-item @if(request()->routeIs('profile'))active @endif"
+                                       href="{{route('profile')}}">Личный кабинет</a></li>
+                                @if(auth()->user()->is_admin)
+                                    <li><a class="dropdown-item" href="{{route('admin.index')}}">Админ панель</a></li>
+                                @endif
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                            @endauth
                             <li><a href="{{route('feedback.create')}}"
-                                   class="dropdown-item @if(request()->routeIs('feedback*')) text-light @endif"
+                                   class="dropdown-item @if(request()->routeIs('feedback*')) active @endif"
                                 >Обратная&nbsp;связь</a>
                             </li>
                             <li><a href="{{route('order.create')}}"
-                                   class="dropdown-item @if(request()->routeIs('order*')) text-light  @endif"
+                                   class="dropdown-item @if(request()->routeIs('order*')) active @endif"
                                 >Заказ&nbsp;новостей</a>
                             </li>
-                            @guest
-                            @elseguest
-                                <li><a class="dropdown-item" href="">Личный кабинет</a></li>
-                                <li><a class="dropdown-item" href="{{route('admin.index')}}">Админ панель</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                <li><a class="dropdown-item" href="#">Выйти</a></li>
-                            @endguest
+                            @auth
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="javascript:;"
+                                       onclick="handleClickLogout(event)"
+                                    >{{__('auth.Logout')}}</a></li>
+                                @include('includes.logout')
+                            @endauth
                         </ul>
                     </li>
                 </ul>
