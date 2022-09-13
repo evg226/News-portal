@@ -14,22 +14,22 @@
                             </div>
                         @endif
                         <h6 class="my-3">{{auth()->user()->name}}, добро пожаловать!</h6>
-                        <div class="row row-cols-2">
-                            <div>id</div>
-                            <div>{{auth()->user()->id}}</div>
-                            <div>Пользователь</div>
-                            <div>{{auth()->user()->name}}</div>
-                            <div>E-mail</div>
-                            <div>{{auth()->user()->email}}</div>
-                            <div>Уровень прав</div>
-                            <div>{{auth()->user()->is_admin?'Администратор':'Пользователь'}}</div>
-                        </div>
-                        @if(auth()->user()->is_admin)
-                            <div class="text-center my-3">
-                                <a class="btn btn-outline-secondary" href="{{route('admin.index')}}">Админ. панель
-                                    >></a>
+                        <div class="row">
+                            <div class="col-sm-4" style="max-width: 200px">
+                                <img class="rounded-circle w-100" src="{{auth()->user()->avatar}}">
                             </div>
-                        @endif
+                            <div class="col-sm-8 d-flex flex-column">
+                                <div class="my-2"><b>id:</b> {{auth()->user()->id}}</div>
+                                <div class="my-2"><b>Пользователь:</b> {{auth()->user()->name}}</div>
+                                <div class="my-2"><b>E-mail:</b> {{auth()->user()->email}}</div>
+                                <div class="my-2"><b>Уровень прав:</b> {{auth()->user()->is_admin?'Администратор':'Пользователь'}}</div>
+                                @if(auth()->user()->is_admin)
+                                    <div class="">
+                                        <a class="btn btn-outline-secondary py-1 my-2" href="{{route('admin.index')}}">Админ. панель</a>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

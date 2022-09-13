@@ -24,6 +24,7 @@
                             <th scope="col">Имя</th>
                             <th scope="col">Админ</th>
                             <th scope="col">E-mail</th>
+                            <th scope="col">Last login</th>
                             <th scope="col">Создано</th>
                             <th scope="col">Измен</th>
                             <th scope="col"></th>
@@ -37,6 +38,7 @@
                                 <td>{{$user->name}}</td>
                                 <td class="text-center"><input type="checkbox" @checked($user->is_admin) disabled /></td>
                                 <td>{{$user->email}}</td>
+                                <td>{{$user->last_login_at}}</td>
                                 <td>{{$user->created_at}}</td>
                                 <td>{{$user->updated_at}}</td>
                                 <td class="text-center p-0" style="width: 40px">

@@ -28,16 +28,21 @@
                 </ul>
                 <ul class="navbar-nav mr-auto mb-lg-0">
                     <li class="nav-item dropdown">
-                        <span class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        <span class="nav-link dropdown-toggle d-flex align-items-center pe-0"
+                              role="button" data-bs-toggle="dropdown"
                               aria-expanded="false">
                             @guest
                                 Гость
                             @endguest
                             @auth
-                                {{auth()->user()->name}}
+                                    @if(auth()->user()->avatar)
+                                    <img src="{{auth()->user()->avatar}}" alt="Profile" class="rounded-circle"
+                                         height="30px">
+                                @endif
+                                <span class="ps-2">{{auth()->user()->name}}</span>
                             @endauth
-
                         </span>
+
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
                             @guest
                                 <li><a href="{{route('login')}}"

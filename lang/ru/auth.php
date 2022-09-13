@@ -17,7 +17,8 @@ return [
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'notAdmin' => 'Доступ только для администраторов',
-    'Login' => 'Вход в систему',
+    'Login' => 'Войти',
+    'VKlogin' => 'Через VK',
     'Email Address' => 'Email адрес',
     'Password' => 'Пароль',
     'Remember Me' => 'Запомнить меня',
@@ -29,4 +30,5 @@ return [
     'Name' => 'Имя',
     'Reset Password' => 'Сброс пароля',
     'Logout' => 'Выход',
+    'socialSaveFail' => 'Пользователь из соц.сети не сохранен'
 ];

@@ -12,10 +12,13 @@ use \App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\SourceController as AdminSourceController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use \App\Http\Controllers\Admin\ParserController as AdminParserController;
 
 use \App\Http\Controllers\FeedbackController;
 use \App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
+
+use \App\Http\Controllers\SocialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,8 +65,10 @@ Route::middleware('auth')->group(function () {
             ->name('index', 'categories');
         Route::resource('/sources', AdminSourceController::class)
             ->name('index', 'sources');
-        Route::resource('/users',AdminUserController::class)
-            ->name('index','users');
+        Route::resource('/users', AdminUserController::class)
+            ->name('index', 'users');
+        Route::get('/parse', AdminParserController::class)
+            ->name('parse');
     });
 });
 
@@ -79,6 +84,14 @@ Route::group(['prefix' => 'order', 'as' => 'order.'], function () {
         ->name('create');
     Route::post('/', [OrderController::class, 'store'])
         ->name('store');
+});
+Route::group(['middleware' => 'guest'], function () {
+    Route::get('/auth/redirect/{driver}', [SocialController::class, 'redirect'])
+        ->name('social.auth.redirect')
+        ->where('driver', '\w+');
+    Route::get('/auth/callback/{driver}', [SocialController::class, 'callback'])
+        ->name('social.auth.callback')
+        ->where('driver', '\w+');
 });
 
 

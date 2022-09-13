@@ -10,7 +10,6 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-
                         <div class="row mb-3">
                             <label for="email"
                                    class="col-md-4 col-form-label text-md-end">{{ __('auth.Email Address') }}</label>
@@ -58,7 +57,7 @@
                         </div>
 
                         <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
+                            <div class="col-md-8 order-md-2">
                                 <button type="submit" class="btn btn-secondary">
                                     {{ __('auth.Login') }}
                                 </button>
@@ -72,6 +71,10 @@
                                         {{ __('auth.Forgot Your Password?') }}
                                     </a>
                                 @endif
+                            </div>
+                            <div class="col-md-4 order-md-1 mt-3 mt-md-0">
+                                <a href="{{route('social.auth.redirect',['driver'=>'vkontakte'])}}"
+                                   class="btn btn-outline-primary">{{__('auth.VKlogin')}}</a>
                             </div>
                         </div>
                     </form>

@@ -26,7 +26,7 @@ class EditRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'min:5', 'max:30'],
             'is_admin' => ['required','integer'],
-            'email' => ['required', 'email:rfc,dns', 'max:250']
+            'email' => ['required', 'unique:users,email,'.$this->get('id'),'email:rfc,dns', 'max:250']
         ];
     }
 

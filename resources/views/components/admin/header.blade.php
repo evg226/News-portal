@@ -17,7 +17,9 @@
 
             <li class="nav-item dropdown pe-3">
                 <a class="nav-link nav-profile d-flex align-items-center pe-0">
-                    <img src="{{asset('img/profile-img.jpg')}}" alt="Profile" class="rounded-circle">
+                    @if(auth()->user()->avatar)
+                        <img src="{{auth()->user()->avatar}}" alt="Profile" class="rounded-circle">
+                    @endif
                     <span class="d-none d-sm-block ps-2">{{auth()->user()->name}}</span>
                 </a>
             </li>
