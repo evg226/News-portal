@@ -15,4 +15,9 @@ interface ParserContract
      * @return array
      */
     public function getParsedData(): array;
+
+    /**
+     * @return bool
+     */
+//    public function writeToDB():bool;
 }

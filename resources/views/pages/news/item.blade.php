@@ -16,7 +16,7 @@
                  class="img-fluid">
         </div>
         <div>
-            {{$newsItem['content']}}
+            {!!  $newsItem['content']!!}
         </div>
     </div>
 

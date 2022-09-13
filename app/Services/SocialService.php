@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Models\User;
 use App\Services\Contracts\SocialContract;
+use Carbon\CarbonImmutable;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Contracts\User as SocialUser;
 
 class SocialService implements SocialContract
@@ -16,10 +18,17 @@ class SocialService implements SocialContract
             ->where('email', '=', $socialUser->getEmail())
             ->first();
         if ($user === null) {
-            return redirect(route('auth.register'));
+//            return route('register');
+            $user = User::create([
+                'name' => $socialUser->getName()?:$socialUser->getNickname(),
+                'email' => $socialUser->getEmail(),
+                'avatar' => $socialUser->getAvatar(),
+                'password' => Hash::make(CarbonImmutable::now()),
+            ]);
+        } else {
+            $user->name = $socialUser->getName()?:$socialUser->getNickname();
+            $user->avatar = $socialUser->getAvatar();
         }
-        $user->name = $socialUser->getName();
-        $user->avatar = $socialUser->getAvatar();
         if ($user->save()) {
             auth()->loginUsingId($user->id);
             return route('profile');

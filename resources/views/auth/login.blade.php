@@ -75,6 +75,8 @@
                             <div class="col-md-4 order-md-1 mt-3 mt-md-0">
                                 <a href="{{route('social.auth.redirect',['driver'=>'vkontakte'])}}"
                                    class="btn btn-outline-primary">{{__('auth.VKlogin')}}</a>
+                                <a href="{{route('social.auth.redirect',['driver'=>'github'])}}"
+                                   class="btn btn-outline-primary">{{__('auth.Github')}}</a>
                             </div>
                         </div>
                     </form>

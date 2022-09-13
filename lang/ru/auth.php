@@ -19,6 +19,7 @@ return [
     'notAdmin' => 'Доступ только для администраторов',
     'Login' => 'Войти',
     'VKlogin' => 'Через VK',
+    'Github' => 'Github',
     'Email Address' => 'Email адрес',
     'Password' => 'Пароль',
     'Remember Me' => 'Запомнить меня',

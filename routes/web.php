@@ -67,8 +67,9 @@ Route::middleware('auth')->group(function () {
             ->name('index', 'sources');
         Route::resource('/users', AdminUserController::class)
             ->name('index', 'users');
-        Route::get('/parse', AdminParserController::class)
-            ->name('parse');
+        Route::get('/parse/{source}', AdminParserController::class)
+            ->name('parse')
+            ->where('source', '\d+');
     });
 });
 

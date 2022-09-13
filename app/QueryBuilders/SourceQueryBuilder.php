@@ -35,4 +35,5 @@ final class SourceQueryBuilder
         return $source->fill($data)
             ->save();
     }
+
 }

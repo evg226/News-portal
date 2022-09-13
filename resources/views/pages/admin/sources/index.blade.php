@@ -26,6 +26,7 @@
                             <th scope="col">Дата&nbsp;c</th>
                             <th scope="col"></th>
                             <th scope="col"></th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -36,6 +37,12 @@
                                 <td>{{$source->description}}</td>
                                 <td>{{$source->url}}</td>
                                 <td class="text-nowrap">{{$source->created_at}}</td>
+                                <td class="text-center p-0" style="width: 40px">
+                                    <a href="{{route('admin.parse',['source'=>$source->id])}}"
+                                       class="btn link-primary">
+                                        <i class="bi bi-box-arrow-in-up"></i>
+                                    </a>
+                                </td>
                                 <td class="text-center p-0" style="width: 40px">
                                     <a href="{{route('admin.sources.edit',['source'=>$source->id])}}"
                                        class="btn link-primary">

@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\QueryBuilders\CategoryQueryBuilder;
+use App\QueryBuilders\SourceQueryBuilder;
 use App\Services\Contracts\ParserContract;
 use Orchestra\Parser\Xml\Facade as XmlParser;
 
@@ -45,4 +47,5 @@ class ParserService implements ParserContract
             ]
         ]);
     }
+
 }

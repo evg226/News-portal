@@ -25,7 +25,7 @@ final class CategoryQueryBuilder
             ->paginate(config('pagination.admin.categories'));
     }
 
-    public function getAll()
+    public function getAll(): \Illuminate\Database\Eloquent\Collection
     {
         return $this->builder->get();
     }
@@ -40,4 +40,16 @@ final class CategoryQueryBuilder
         return $category->fill($data)
             ->save();
     }
+
+    public function getByTitle(string $title)
+    {
+        return $this->builder
+            ->where('title', '=', $title)
+            ->firstOrCreate([
+                'title'=> $title,
+                'author' => auth()->user()->name
+            ]);
+    }
+
+
 }
