@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
+use Cviebrock\EloquentSluggable\SluggableObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class News extends Model
 {
-    use HasFactory;
+    use HasFactory,Sluggable;
 
     protected $table = 'news';
 
@@ -19,7 +21,7 @@ class News extends Model
     ];
 
     protected $fillable = [
-        'title', 'description', 'content', 'image', 'author', 'status', 'category_id', 'source_id'
+        'title', 'description', 'content', 'image', 'author', 'status', 'category_id', 'source_id','slug'
     ];
 
     public function category ():BelongsTo
@@ -32,4 +34,13 @@ class News extends Model
         return  $this->belongsTo(Source::class,'source_id','id');
     }
 
-}
+    public function sluggable(): array
+    {
+        return [
+            'slug'=>[
+                'source'=>'title'
+            ]
+        ];
+    }
+
+ }

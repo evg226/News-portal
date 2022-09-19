@@ -35,6 +35,7 @@ class NewsSeeder extends Seeder
                 'status' => array_values(News::STATUSES)[rand(0, 2)],
                 'category_id' => rand(1, 20),
                 'source_id' => rand(1, 10),
+                'slug'=>$faker->slug()
             ];
         }
         return $news;

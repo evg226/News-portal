@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-    @parent - Новость {{$newsItem['id']}}
+    @parent - Новость {{$newsItem['slug']}}
 @endsection
 
 @section('content')
@@ -12,7 +12,7 @@
     </div>
     <div class="my-4">
         <div class="float-md-left mr-md-4 mb-4 col-md-6 col-lg-4">
-            <img src="{{$newsItem['image']}}" alt="Picture {{$newsItem['title']}}"
+            <img src="{{\Illuminate\Support\Facades\Storage::url($newsItem['image'])}}" alt="Picture {{$newsItem['title']}}"
                  class="img-fluid">
         </div>
         <div>

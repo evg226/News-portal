@@ -45,7 +45,7 @@
                                                 <hr class="dropdown-divider">
                                             </li>
                                             @foreach($category->news as $news)
-                                                <li><a class="dropdown-item" href="{{route('news.item',['id'=>$news->id])}}">
+                                                <li><a class="dropdown-item" href="{{route('news.item',['slug'=>$news->slug])}}">
                                                         <span>{{$news->id}}</span>
                                                         <span>{{$news->title}}</span>
                                                     </a></li>

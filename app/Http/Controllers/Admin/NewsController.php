@@ -9,6 +9,8 @@ use App\Models\Category;
 use App\Models\News;
 use App\QueryBuilders\CategoryQueryBuilder;
 use App\QueryBuilders\NewsQueryBuilder;
+use App\Services\Contracts\FileUploadContract;
+use App\Services\FileUploadService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,6 +20,8 @@ use Illuminate\View\View;
 
 class NewsController extends Controller
 {
+    protected string $name = 'news';
+
     /**
      * Display a listing of the resource.
      *
@@ -50,10 +54,13 @@ class NewsController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(NewsCreateRequest $request)
+    public function store(NewsCreateRequest $request, FileUploadContract $fileUpload)
     {
         $validated = $request->validated();
         $validated['source_id'] = 1;
+        if ($request->hasFile('image')) {
+            $validated['image'] = $fileUpload->uploadImage(request()->file('image'), $this->name);
+        }
 
         if (News::create($validated)) {
             return
@@ -99,13 +106,19 @@ class NewsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(
-        NewsEditRequest  $request,
-        NewsQueryBuilder $builder,
-        News             $news
+        NewsEditRequest    $request,
+        NewsQueryBuilder   $builder,
+        News               $news,
+        FileUploadContract $fileUpload
     ): RedirectResponse
     {
         $validated = $request->validated();
-
+        if ($request->hasFile('image')) {
+            $validated['image'] = $fileUpload->uploadImage(request()->file('image'), $this->name);
+        } elseif ($request->has('remove-image')) {
+            $fileUpload->removeFile($request->get('remove-image'));
+            $validated['image'] = '';
+        }
         if ($builder->update($news, $validated)) {
             return
                 redirect(route('admin.news'))
@@ -123,7 +136,7 @@ class NewsController extends Controller
      * @param News $news
      * @return JsonResponse
      */
-    public function destroy(Request $request, News $news):JsonResponse
+    public function destroy(Request $request, News $news): JsonResponse
     {
         if ($request->expectsJson()) {
             try {

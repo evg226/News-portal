@@ -38,4 +38,18 @@ final class NewsQueryBuilder
         return $news->fill($data)
             ->save();
     }
+
+    public function getBySlug(string $slug):Builder{
+        return $this->builder
+            ->where('slug','=',$slug);
+    }
+
+    public function upsert(array $data): bool
+    {
+        return News::upsert(
+            $data,
+            ['slug'],
+            ['content','author']
+        );
+    }
 }

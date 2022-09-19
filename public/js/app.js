@@ -2899,7 +2899,7 @@ var ReactApp = function ReactApp() {
       className: "row row-cols-1 row-cols-md-2  row-cols-xl-3",
       children: !!news.length && news.map(function (item) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
-          href: "/news/" + item.id,
+          href: "/news/" + item.slug,
           className: "col text-decoration-none text-secondary p-3",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
             className: "card h-100 shadow",

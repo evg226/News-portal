@@ -5,6 +5,7 @@ namespace App\QueryBuilders;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
 
 final class CategoryQueryBuilder
 {
@@ -41,15 +42,13 @@ final class CategoryQueryBuilder
             ->save();
     }
 
-    public function getByTitle(string $title)
+    public function getByTitle(string $title,string $author)
     {
         return $this->builder
             ->where('title', '=', $title)
             ->firstOrCreate([
                 'title'=> $title,
-                'author' => auth()->user()->name
+                'author' => $author
             ]);
     }
-
-
 }

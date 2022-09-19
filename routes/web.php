@@ -40,8 +40,8 @@ Route::get('/about', AboutController::class)
 Route::get('/news', [NewsController::class, 'index'])
     ->name('news');
 
-Route::get('/news/{id}', [NewsController::class, 'show'])
-    ->where('id', '\d+')
+Route::get('/news/{slug}', [NewsController::class, 'show'])
+//    ->where('slug', '\w+')
     ->name('news.item');
 
 Route::get('/categories', [CategoryController::class, 'index'])

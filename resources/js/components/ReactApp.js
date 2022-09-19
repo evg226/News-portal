@@ -146,7 +146,7 @@ export const ReactApp = () => {
                 {
                     !!news.length &&
                     news.map(item =>
-                        <a key={item.id} href={"/news/" + item.id}
+                        <a key={item.id} href={"/news/" + item.slug}
                            className="col text-decoration-none text-secondary p-3">
                             <div className="card h-100 shadow">
                                 <img

@@ -14,7 +14,8 @@
                         <h5 class="card-title">Изменить новость</h5>
 
                         <!-- Multi Columns Form -->
-                        <form class="row g-3" method="post" action="{{route('admin.news.update',['news'=>$newsItem])}}">
+                        <form class="row g-3" method="post" action="{{route('admin.news.update',['news'=>$newsItem])}}"
+                              enctype="multipart/form-data">
                             @csrf
                             @method('put')
                             <div class="col-md-8">
@@ -33,10 +34,11 @@
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <label for="description" class="form-label">Описание </label>
                                 <input type="text" class="form-control @error('description') border-danger @enderror"
-                                       id="description" name="description" value="{{old('description')?:$newsItem->description}}">
+                                       id="description" name="description"
+                                       value="{{old('description')?:$newsItem->description}}">
                                 @error('description')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
@@ -56,14 +58,6 @@
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label for="image" class="form-label">Фото</label>
-                                <input type="text" class="form-control @error('image') border-danger @enderror"
-                                       id="image" name="image" value="{{old('image')?:$newsItem->image}}">
-                                @error('image')
-                                <small class="text-danger">{{$message}}</small>
-                                @enderror
-                            </div>
-                            <div class="col-md-6">
                                 <label for="category" class="form-label">Категория</label>
                                 <select id="category" class="form-select" name="category_id">
                                     {{--                                    <option selected>Выберите категорию</option>--}}
@@ -76,6 +70,24 @@
                                         </option>
                                     @endforeach
                                 </select>
+                            </div>
+                            <div class="col-md-8">
+                                <label for="image" class="form-label">Фото</label>
+                                <input type="file" class="form-control @error('image') border-danger @enderror"
+                                       id="image" name="image" value="{{old('image')?:$newsItem->image}}">
+                                @error('image')
+                                <small class="text-danger">{{$message}}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-4" id="show-image" rel="{{$newsItem->image}}">
+                                @if($newsItem->image)
+                                    <img src="{{\Illuminate\Support\Facades\Storage::url($newsItem->image)}}"
+                                         alt="image {{$newsItem->title}}"
+                                         height="100px">
+                                    <h4 class="d-inline link-danger" id="remove-image">
+                                        <i class="bi bi-x-circle-fill"></i>
+                                    </h4>
+                                @endif
                             </div>
                             <div class="col-md-12">
                                 <label for="content" class="form-label">Контент</label>
@@ -96,5 +108,10 @@
             </div>
         </div>
     </section>
+
+    @push('editorjs')
+        <script src="{{asset('js/newsUpdate.js')}}"></script>
+    @endpush
+
 
 @endsection

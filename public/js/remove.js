@@ -4913,6 +4913,20 @@ document.addEventListener('DOMContentLoaded', function () {
       return _ref2.apply(this, arguments);
     };
   }();
+
+  var removeImage = function removeImage() {
+    var removeEl = document.getElementById('show-image');
+    removeEl.insertAdjacentHTML('beforebegin', "<input type=\"text\" hidden name=\"remove-image\" value=\"".concat(removeEl.getAttribute('rel'), "\">"));
+    removeEl.remove();
+  };
+
+  var removeEl = document.getElementById('remove-image');
+  var imageEl = document.getElementById('image');
+
+  if (removeEl && imageEl) {
+    removeEl.addEventListener('click', removeImage);
+    imageEl.addEventListener('change', removeImage);
+  }
 });
 })();
 

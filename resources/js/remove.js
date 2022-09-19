@@ -46,6 +46,20 @@ document.addEventListener('DOMContentLoaded', () => {
             return e.response.data.error
         }
     }
+
+    const removeImage = () => {
+        const removeEl = document.getElementById('show-image');
+        removeEl.insertAdjacentHTML('beforebegin', `<input type="text" hidden name="remove-image" value="${removeEl.getAttribute('rel')}">`);
+        removeEl.remove();
+    }
+    const removeEl = document.getElementById('remove-image');
+    const imageEl = document.getElementById('image');
+    if (removeEl&&imageEl) {
+        removeEl.addEventListener('click', removeImage);
+        imageEl.addEventListener('change', removeImage);
+    }
+
+
 });
 
 

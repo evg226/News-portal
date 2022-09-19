@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\News;
+use App\QueryBuilders\NewsQueryBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
@@ -29,11 +30,10 @@ class NewsController extends Controller
                 );
     }
 
-    public function show(Request $request, int $id): View
+    public function show(string $slug, NewsQueryBuilder $builder): View
     {
-        $news=News::find($id);
         return view('pages.news.item', [
-                'newsItem' => $news
+                'newsItem' => $builder->getBySlug($slug)->first()
             ]
         );
     }

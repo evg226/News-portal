@@ -14,7 +14,7 @@
                         <h5 class="card-title">Добавить новость</h5>
 
                         <!-- Multi Columns Form -->
-                        <form class="row g-3" method="post" action="{{route('admin.news.store')}}">
+                        <form class="row g-3" method="post" action="{{route('admin.news.store')}}" enctype="multipart/form-data">
                             @csrf
                             <div class="col-md-8">
                                 <label for="title" class="form-label">Название</label>
@@ -56,7 +56,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="image" class="form-label">Фото</label>
-                                <input type="text" class="form-control @error('image') border-danger @enderror"
+                                <input type="file" class="form-control @error('image') border-danger @enderror"
                                        id="image" name="image" value="{{old('image')}}">
                                 @error('image')
                                 <small class="text-danger">{{$message}}</small>
